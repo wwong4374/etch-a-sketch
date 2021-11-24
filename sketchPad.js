@@ -1,11 +1,27 @@
+/* eslint-disable import/extensions */
+/* eslint-disable no-undef */
+/* eslint-disable no-empty-pattern */
 /* eslint-disable no-plusplus */
+// const {} = require('./buttonClickHandlers.js');
+
 let dimension = 16;
 const gridWidth = 550;
-let useRainbow = false;
+let useColor = false;
+let useRandom = false;
 let useEraser = false;
 
 const dimensionDisplay = document.querySelector('span.dimensionDisplay');
 dimensionDisplay.textContent = `${dimension} x ${dimension}`;
+
+const getRandomColor = () => {
+  // https://stackoverflow.com/questions/1484506/random-color-generator
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+};
 
 const handleSquareHoverPencil = (e) => {
   e.target.className = 'sketchPadSquareFilled';
@@ -13,6 +29,10 @@ const handleSquareHoverPencil = (e) => {
 
 const handleSquareHoverEraser = (e) => {
   e.target.className = 'sketchPadSquareBlank';
+};
+
+const handleSquareHoverRandom = (e) => {
+  e.target.style['background-color'] = getRandomColor();
 };
 
 const assignSquareClassNames = (className) => {
@@ -39,6 +59,8 @@ const assignSquareEventListeners = () => {
       square.parentNode.replaceChild(newSquare, square);
       if (useEraser) {
         newSquare.addEventListener('mouseover', handleSquareHoverEraser);
+      } else if (useRandom) {
+        newSquare.addEventListener('mouseover', handleSquareHoverRandom);
       } else {
         newSquare.addEventListener('mouseover', handleSquareHoverPencil);
       }
@@ -81,36 +103,66 @@ const handleDimensionChange = (e) => {
 const dimensionInput = document.querySelector('input.dimensionInput');
 dimensionInput.addEventListener('change', handleDimensionChange);
 
-const handleRainbowButtonClick = () => {
-  useRainbow = !useRainbow;
-  if (useRainbow) {
+const handleColorButtonClick = () => {
+  useColor = !useColor;
+  if (useColor) {
+    useRandom = false;
     useEraser = false;
+    const randomButton = document.querySelector('button.randomButton');
     const eraserButton = document.querySelector('button.eraserButton');
-    eraserButton.classList.remove('eraserButtonClicked');
+    randomButton.classList.remove('buttonClicked');
+    eraserButton.classList.remove('buttonClicked');
   }
-  const RainbowButton = document.querySelector('button.rainbowButton');
-  if (useRainbow) {
-    RainbowButton.classList.add('rainbowButtonClicked');
+
+  const ColorButton = document.querySelector('button.colorButton');
+  if (useColor) {
+    ColorButton.classList.add('buttonClicked');
   } else {
-    RainbowButton.classList.remove('rainbowButtonClicked');
+    ColorButton.classList.remove('buttonClicked');
   }
   assignSquareEventListeners();
 };
-const useRainbowButton = document.querySelector('button.rainbowButton');
-useRainbowButton.addEventListener('click', handleRainbowButtonClick);
+const useColorButton = document.querySelector('button.colorButton');
+useColorButton.addEventListener('click', handleColorButtonClick);
+
+const handleRandomButtonClick = () => {
+  useRandom = !useRandom;
+  if (useRandom) {
+    useColor = false;
+    useEraser = false;
+    const colorButton = document.querySelector('button.colorButton');
+    const eraserButton = document.querySelector('button.eraserButton');
+    colorButton.classList.remove('buttonClicked');
+    eraserButton.classList.remove('buttonClicked');
+  }
+
+  const RandomButton = document.querySelector('button.randomButton');
+  if (useRandom) {
+    RandomButton.classList.add('buttonClicked');
+  } else {
+    RandomButton.classList.remove('buttonClicked');
+  }
+  assignSquareEventListeners();
+};
+const useRandomButton = document.querySelector('button.randomButton');
+useRandomButton.addEventListener('click', handleRandomButtonClick);
 
 const handleEraserButtonClick = () => {
   useEraser = !useEraser;
   if (useEraser) {
-    useRainbow = false;
-    const rainbowButton = document.querySelector('button.rainbowButton');
-    rainbowButton.classList.remove('rainbowButtonClicked');
+    useColor = false;
+    useRandom = false;
+    const colorButton = document.querySelector('button.colorButton');
+    const randomButton = document.querySelector('button.randomButton');
+    colorButton.classList.remove('buttonClicked');
+    randomButton.classList.remove('buttonClicked');
   }
+
   const eraserButton = document.querySelector('button.eraserButton');
   if (useEraser) {
-    eraserButton.classList.add('eraserButtonClicked');
+    eraserButton.classList.add('buttonClicked');
   } else {
-    eraserButton.classList.remove('eraserButtonClicked');
+    eraserButton.classList.remove('buttonClicked');
   }
   assignSquareEventListeners();
 };

@@ -104,15 +104,19 @@ button {
 }
 
 .colorButton,
-.rainbowButton,
+.randomButton,
 .eraserButton,
 .resetButton {
   height: 40px;
   width: 150px;
 }
 
-.rainbowButtonClicked,
+/* .rainbowButtonClicked,
 .eraserButtonClicked {
+  border: gold solid 3px;
+} */
+
+.buttonClicked {
   border: gold solid 3px;
 }
 
