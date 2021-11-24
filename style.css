@@ -97,11 +97,15 @@ button {
 }
 
 .sketchPadSquareBlank {
-  background-color: white;
+  background-color: rgba(255, 255, 255, 1);
 }
 
 .sketchPadSquareFilled {
-  background-color: black;
+  /* background-color: rgba(0, 0, 0, 1); */
+}
+
+.sketchPadGradient {
+  filter: brightness(0);
 }
 
 .gradientButton,

@@ -2,7 +2,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-empty-pattern */
 /* eslint-disable no-plusplus */
-// const {} = require('./buttonClickHandlers.js');
 
 let dimension = 16;
 const gridWidth = 550;
@@ -25,22 +24,38 @@ const getRandomColor = () => {
 };
 
 const handleSquareHoverPencil = (e) => {
-  e.target.className = 'sketchPadSquareFilled';
+  e.target.style.backgroundColor = 'rgba(0, 0, 0, 1)';
 };
 
 const handleSquareHoverEraser = (e) => {
-  e.target.style['background-color'] = 'white';
+  e.target.style.backgroundColor = 'rgba(255, 255, 255, 1)';
 };
 
 const handleSquareHoverRandom = (e) => {
-  e.target.style['background-color'] = getRandomColor();
+  e.target.style.backgroundColor = getRandomColor();
 };
 
 const handleSquareHoverGradient = (e) => {
-  // TODO: Increment shade by 10%
-}
+  const currentColor = getComputedStyle(e.target).backgroundColor;
 
-const assignSquareClassNames = (className) => {
+  // Get current rgb
+  let rgba = currentColor.split(' ');
+  let r = rgba[0];
+  r = r.replace('r', '');
+  r = r.replace('g', '');
+  r = r.replace('b', '');
+  r = r.replace('(', '');
+  r = r.replace(',', '');
+  // Darken rgb
+  if (r < 25) {
+    r = 0;
+  } else {
+    r -= 25;
+  }
+  e.target.style.backgroundColor = `rgba(${r}, ${r}, ${r}, 1)`;
+};
+
+const assignSquareClassNames = () => {
   const gridContainer = document.querySelector('div.gridContainer');
   for (let i = 0; i < gridContainer.children.length; i++) {
     const rowContainer = gridContainer.children[i];
@@ -66,6 +81,8 @@ const assignSquareEventListeners = () => {
         newSquare.addEventListener('mouseover', handleSquareHoverEraser);
       } else if (useRandom) {
         newSquare.addEventListener('mouseover', handleSquareHoverRandom);
+      } else if (useGradient) {
+        newSquare.addEventListener('mouseover', handleSquareHoverGradient);
       } else {
         newSquare.addEventListener('mouseover', handleSquareHoverPencil);
       }
