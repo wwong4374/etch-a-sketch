@@ -6,13 +6,14 @@
 
 let dimension = 16;
 const gridWidth = 550;
-let useColor = false;
+let useGradient = false;
 let useRandom = false;
 let useEraser = false;
 
 const dimensionDisplay = document.querySelector('span.dimensionDisplay');
 dimensionDisplay.textContent = `${dimension} x ${dimension}`;
 
+// COLOR FUNCTIONS
 const getRandomColor = () => {
   // https://stackoverflow.com/questions/1484506/random-color-generator
   const letters = '0123456789ABCDEF';
@@ -28,12 +29,16 @@ const handleSquareHoverPencil = (e) => {
 };
 
 const handleSquareHoverEraser = (e) => {
-  e.target.className = 'sketchPadSquareBlank';
+  e.target.style['background-color'] = 'white';
 };
 
 const handleSquareHoverRandom = (e) => {
   e.target.style['background-color'] = getRandomColor();
 };
+
+const handleSquareHoverGradient = (e) => {
+  // TODO: Increment shade by 10%
+}
 
 const assignSquareClassNames = (className) => {
   const gridContainer = document.querySelector('div.gridContainer');
@@ -42,7 +47,7 @@ const assignSquareClassNames = (className) => {
     rowContainer.className = 'sketchPadRow';
     for (let j = 0; j < rowContainer.children.length; j++) {
       const square = rowContainer.children[j];
-      square.className = className;
+      square.style['background-color'] = 'white';
     }
   }
 };
@@ -67,12 +72,6 @@ const assignSquareEventListeners = () => {
     }
   }
 };
-
-// Attach resetButton click handler
-const resetButton = document.querySelector('button.resetButton');
-resetButton.addEventListener('click', () => {
-  assignSquareClassNames('sketchPadSquareBlank');
-});
 
 const makeBlankSketchPad = (numSquares) => {
   // Build a blank n x n grid
@@ -103,9 +102,25 @@ const handleDimensionChange = (e) => {
 const dimensionInput = document.querySelector('input.dimensionInput');
 dimensionInput.addEventListener('change', handleDimensionChange);
 
-const handleColorButtonClick = () => {
-  useColor = !useColor;
-  if (useColor) {
+// BUTTON CLICK HANDLERS
+// Attach resetButton click handler
+const resetButton = document.querySelector('button.resetButton');
+resetButton.addEventListener('click', () => {
+  useGradient = false;
+  useRandom = false;
+  useEraser = false;
+  const GradientButton = document.querySelector('button.gradientButton');
+  GradientButton.classList.remove('buttonClicked');
+  const RandomButton = document.querySelector('button.randomButton');
+  RandomButton.classList.remove('buttonClicked');
+  const EraserButton = document.querySelector('button.eraserButton');
+  EraserButton.classList.remove('buttonClicked');
+  assignSquareClassNames('sketchPadSquareBlank');
+});
+
+const handleGradientButtonClick = () => {
+  useGradient = !useGradient;
+  if (useGradient) {
     useRandom = false;
     useEraser = false;
     const randomButton = document.querySelector('button.randomButton');
@@ -114,25 +129,25 @@ const handleColorButtonClick = () => {
     eraserButton.classList.remove('buttonClicked');
   }
 
-  const ColorButton = document.querySelector('button.colorButton');
-  if (useColor) {
-    ColorButton.classList.add('buttonClicked');
+  const GradientButton = document.querySelector('button.gradientButton');
+  if (useGradient) {
+    GradientButton.classList.add('buttonClicked');
   } else {
-    ColorButton.classList.remove('buttonClicked');
+    GradientButton.classList.remove('buttonClicked');
   }
   assignSquareEventListeners();
 };
-const useColorButton = document.querySelector('button.colorButton');
-useColorButton.addEventListener('click', handleColorButtonClick);
+const useGradientButton = document.querySelector('button.gradientButton');
+useGradientButton.addEventListener('click', handleGradientButtonClick);
 
 const handleRandomButtonClick = () => {
   useRandom = !useRandom;
   if (useRandom) {
-    useColor = false;
+    useGradient = false;
     useEraser = false;
-    const colorButton = document.querySelector('button.colorButton');
+    const gradientButton = document.querySelector('button.gradientButton');
     const eraserButton = document.querySelector('button.eraserButton');
-    colorButton.classList.remove('buttonClicked');
+    gradientButton.classList.remove('buttonClicked');
     eraserButton.classList.remove('buttonClicked');
   }
 
@@ -150,11 +165,11 @@ useRandomButton.addEventListener('click', handleRandomButtonClick);
 const handleEraserButtonClick = () => {
   useEraser = !useEraser;
   if (useEraser) {
-    useColor = false;
+    useGradient = false;
     useRandom = false;
-    const colorButton = document.querySelector('button.colorButton');
+    const gradientButton = document.querySelector('button.gradientButton');
     const randomButton = document.querySelector('button.randomButton');
-    colorButton.classList.remove('buttonClicked');
+    gradientButton.classList.remove('buttonClicked');
     randomButton.classList.remove('buttonClicked');
   }
 
