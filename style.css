@@ -3,32 +3,119 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.title {
   font-family: sans-serif;
   font-weight: bold;
-  font-size: 40px;
-  margin: 50px;
+  background-color: whitesmoke;
 }
 
-.sketchPadContainer {
-  display: flex;
-  flex-direction: column;
-  width: 500px;
-  height: 500px;
+button {
+  font-weight: bold;
+  background-color: rgb(215, 211, 211);
+  border-radius: 10px;
+  border: black solid 2px;
+  box-shadow: 3px 3px 3px rgb(36, 35, 35);
+  cursor: pointer;
 }
 
-.sketchPadRow {
+.title,
+.subtitle,
+.dimensionLabel {
+  font-size: 48px;
+  margin: 10px;
+}
+
+.inputContainer {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.sketchPadSquare {
+.subtitle,
+.dimensionLabel {
+  font-size: 25px;
+}
+
+.dimensionInput {
+  width: 200px;
+  border-radius: 10px;
+  box-shadow: black;
+  margin: 15px;
+}
+
+.dimensionDisplay {
+  font-size: 22px;
+}
+
+.outerContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttonContainer {
+  display: flex;
+  margin: 15px;
+}
+
+.sketchPadContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(82, 137, 232, 0.536);
+  width: 600px;
+  height: 600px;
+  border: black solid 3px;
+  box-shadow: 3px 3px 3px rgb(36, 35, 35);
+  margin: 20px;
+}
+
+.gridContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(169, 169, 169, 0.536);
+}
+
+.sketchPadRow {
+  display: flex;
+  justify-content: center;
+  max-width: 550px;
+}
+
+.sketchPadSquareBlank,
+.sketchPadSquareFilled {
   height: 20px;
   width: 20px;
   border-color: black;
   border-width: 1px;
   border-style: solid;
+
+}
+
+.sketchPadSquareBlank {
+  background-color: white;
+}
+
+.sketchPadSquareFilled {
+  background-color: black;
+}
+
+.colorButton,
+.rainbowButton,
+.eraserButton,
+.resetButton {
+  height: 40px;
+  width: 150px;
+}
+
+.rainbowButtonClicked,
+.eraserButtonClicked {
+  border: gold solid 3px;
+}
+
+footer {
+  margin: 30px;
 }

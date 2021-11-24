@@ -2,14 +2,27 @@
 <html lang="en">
 <head>
   <title>SketchPad</title>
-  <link href="style.css" rel="stylesheet"></link>
+  <link rel="stylesheet" href="style.css"></link>
+  <link rel="icon" href="pencil.png"></link>
 </head>
 <body>
   <div class="title">Etch A Sketch</div>
+  <div class="inputContainer">
+    <input type="range" class="dimensionInput" min="0" max="100" value="16">
+    <span class="dimensionDisplay"></span>
+  </div>
   <div class="outerContainer">
-    <div class="sketchPadContainer"></div>
+    <div class="buttonContainer">
+      <button class="colorButton">Choose Color</button>
+      <button class="rainbowButton">Rainbow</button>
+      <button class="eraserButton">Eraser</button>
+      <button class="resetButton">Reset</button>
+    </div>
+    <div class="sketchPadContainer">
+      <div class="gridContainer"></div>
+    </div>
   </div>
   <script src="sketchPad.js"></script>
 </body>
-
+<footer>Copyright © 2021 wwong4374</footer>
 </html>
